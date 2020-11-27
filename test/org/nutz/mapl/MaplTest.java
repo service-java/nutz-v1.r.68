@@ -31,7 +31,7 @@ import org.nutz.mvc.adaptor.injector.ObjectNaviNode;
 
 /**
  * MapList测试
- * 
+ *
  * @author juqkai(juqkai@gmail.com)
  */
 public class MaplTest {
@@ -45,12 +45,14 @@ public class MaplTest {
 
 //        dest = Json.fromJson("{a: ['x',['A','B']]}");
 //        assertEquals("x", Mapl.cell(dest, "'a[0]"));
-        
+
         dest = Json.fromJson("{a: [[],['A','B']]}");
         assertEquals("A", Mapl.cell(dest, "'a[1][0]"));
 
         dest = Json.fromJson("{'a.b': {c:'ABC'}}");
         assertEquals("ABC", Mapl.cell(dest, "'a.b'.c"));
+
+        // assertEquals("ABC", Mapl.cell(dest, "a.b.c")); // 这样会有问题
     }
 
     /**
@@ -61,8 +63,11 @@ public class MaplTest {
         Object dest = Json.fromJson("{'a.b':'AB', x : [{'c.d':'CD'},{'e.f':'EF'}]}");
 
         assertEquals("AB", Mapl.cell(dest, "'a.b'"));
+
+        // 这两种都是支持
         assertEquals("CD", Mapl.cell(dest, "x[0].'c.d'"));
         assertEquals("CD", Mapl.cell(dest, "x.0.'c.d'"));
+
         assertEquals("EF", Mapl.cell(dest, "x[1].'e.f'"));
         assertEquals("EF", Mapl.cell(dest, "x.1.'e.f'"));
 
@@ -116,6 +121,7 @@ public class MaplTest {
     public void cellArrayTest3() {
         Object dest = Json.fromJson(Streams.fileInr("org/nutz/json/mateList.txt"));
         assertTrue(Mapl.cell(dest, "users") instanceof List);
+
         List<?> list = (List<?>) Mapl.cell(dest, "users");
         assertEquals("1", Mapl.cell(list, "[0].name"));
     }
@@ -327,6 +333,7 @@ public class MaplTest {
         String model = "{'user':[{'name':['[].name'], 'age':'[].age'}]}";
         String dest = "[{\"name\":\"jk\",\"age\":12}, {\"name\":\"nutz\",\"age\":5}]";
         Object obj = Mapl.convert(Json.fromJson(Lang.inr(json)), Lang.inr(model));
+
         assertEquals("jk", Mapl.cell(obj, "[0].name"));
         assertEquals(5, Mapl.cell(obj, "[1].age"));
         assertEquals(dest, Json.toJson(obj, new JsonFormat()));
@@ -362,6 +369,7 @@ public class MaplTest {
     public void updateItemTest() {
         String json = "{'user':[{'name':'jk', 'age':12},{'name':'nutz', 'age':5}]}";
         Object obj = Json.fromJson(json);
+
         Mapl.update(obj, "user[0].name", "test");
         assertEquals("test", Mapl.cell(obj, "user[0].name"));
     }
@@ -370,7 +378,8 @@ public class MaplTest {
     public void issue243Test() {
         String json = "{'user':[{'name':'jk', 'age':12},{'name':'nutz', 'age':5}]}";
         Object obj = Json.fromJson(json);
-        Object item = Mapl.cell(obj, "user[]");
+        Object item = Mapl.cell(obj, "user[]"); // 获取到第一个
+
         assertFalse(item instanceof List);
         assertTrue(item instanceof Map);
     }
@@ -401,6 +410,7 @@ public class MaplTest {
     public void testIssue322() {
         String json = "{name:'nutz', age:12, address:[{area:1,name:'abc'},{area:2,name:'123'}]}";
         Object obj = Json.fromJson(json);
+
         Object newobj = Mapl.excludeFilter(obj, Lang.list("age", "address[].area"));
         JsonFormat jf = new JsonFormat(true);
         assertEquals("{\"name\":\"nutz\",\"address\":[{\"name\":\"abc\"}, {\"name\":\"123\"}]}",

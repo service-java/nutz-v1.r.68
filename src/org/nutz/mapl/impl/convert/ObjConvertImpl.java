@@ -24,15 +24,15 @@ import org.nutz.lang.Lang;
 import org.nutz.lang.Mirror;
 import org.nutz.lang.util.Context;
 import org.nutz.mapl.Mapl;
-import org.nutz.mapl.MaplConvert;
+import org.nutz.mapl.IMaplConvert;
 
 /**
  * 对象转换 将MapList结构转换成对应的对象
- * 
+ *
  * @author juqkai(juqkai@gmail.com)
  * @author wendal(wendal1985@gmail.com)
  */
-public class ObjConvertImpl implements MaplConvert {
+public class ObjConvertImpl implements IMaplConvert {
 
     // 路径
     protected Stack<String> path = new Stack<String>();

@@ -14,15 +14,15 @@ import org.nutz.json.JsonParser;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Nums;
 import org.nutz.lang.util.NutMap;
-import org.nutz.mapl.MaplCompile;
+import org.nutz.mapl.IMaplCompile;
 
 /**
  * 将json理解为Map+List,以Token的方式读取,避免回溯等操作
- * 
+ *
  * @author wendal(wendal1985@gmail.com)
- * 
+ *
  */
-public class JsonCompileImplV2 implements JsonParser, MaplCompile<Reader> {
+public class JsonCompileImplV2 implements JsonParser, IMaplCompile<Reader> {
 
     @Override
     public Object parse(Reader reader) {
@@ -323,7 +323,7 @@ final class JsonTokenScan {
                 throw unexpectChar((char) token.type);
         }
     }
-    
+
     protected Number toLong(String value) {
         Nums.Radix r = Nums.evalRadix(value);
         try {

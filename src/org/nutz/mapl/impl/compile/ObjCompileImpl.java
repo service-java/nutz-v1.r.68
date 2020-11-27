@@ -15,14 +15,14 @@ import org.nutz.json.entity.JsonEntity;
 import org.nutz.json.entity.JsonEntityField;
 import org.nutz.lang.FailToGetValueException;
 import org.nutz.lang.Mirror;
-import org.nutz.mapl.MaplCompile;
+import org.nutz.mapl.IMaplCompile;
 
 /**
  * 将对象理解成Map+List
- * 
+ *
  * @author juqkai(juqkai@gmail.com)
  */
-public class ObjCompileImpl implements MaplCompile<Object> {
+public class ObjCompileImpl implements IMaplCompile<Object> {
 
     private Map<Object, Object> memo = new LinkedHashMap<Object, Object>();
 

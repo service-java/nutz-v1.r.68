@@ -8,7 +8,7 @@ import java.util.Map;
  * 递归MapList结构, 将路径与相应的值传递给子类进行处理.
  * @author juqkai(juqkai@gmail.com)
  */
-public abstract class MaplEach {
+public abstract class AbstractMaplEach {
     //路径
     protected LinkedList<String> paths = new LinkedList<String>();
     protected LinkedList<Integer> arrayIndex = new LinkedList<Integer>();
@@ -68,7 +68,7 @@ public abstract class MaplEach {
             arrayIndex.removeLast();
         }
     }
-    
+
     /**
      * 前序
      * @param path

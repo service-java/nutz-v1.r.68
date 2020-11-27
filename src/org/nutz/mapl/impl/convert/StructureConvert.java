@@ -8,8 +8,8 @@ import java.util.Map;
 import org.nutz.json.Json;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Streams;
-import org.nutz.mapl.MaplConvert;
-import org.nutz.mapl.impl.MaplEach;
+import org.nutz.mapl.IMaplConvert;
+import org.nutz.mapl.impl.AbstractMaplEach;
 import org.nutz.mapl.impl.MaplRebuild;
 
 /**
@@ -60,14 +60,14 @@ import org.nutz.mapl.impl.MaplRebuild;
  * </pre>
  * @author juqkai(juqkai@gmail.com)
  */
-public class StructureConvert extends MaplEach implements MaplConvert{
+public class StructureConvert extends AbstractMaplEach implements IMaplConvert {
     //关系
     private Map<String, List<String>> relation = new LinkedHashMap<String, List<String>>();
-    
+
     private MaplRebuild structure = new MaplRebuild();
-    
+
     /**
-     * 
+     *
      * @param path 模板文件路径
      */
     public StructureConvert(String path){
@@ -75,7 +75,7 @@ public class StructureConvert extends MaplEach implements MaplConvert{
         loadRelation(obj, "");
     }
     /**
-     * 
+     *
      * @param reader 模板流
      */
     public StructureConvert(Reader reader){
@@ -83,13 +83,13 @@ public class StructureConvert extends MaplEach implements MaplConvert{
         loadRelation(obj, "");
     }
     /**
-     * 
+     *
      * @param obj 模板的Map, List结构
      */
     public StructureConvert(Object obj){
         loadRelation(obj, "");
     }
-    
+
     /**
      * 转换
      * @param obj 目标对象
@@ -99,7 +99,7 @@ public class StructureConvert extends MaplEach implements MaplConvert{
         each(obj);
         return structure.fetchNewobj();
     }
-    
+
     @Override
     protected void LRD(String path, Object item) {}
 
@@ -114,12 +114,12 @@ public class StructureConvert extends MaplEach implements MaplConvert{
                 if("".equals(dest)){
                     structure.put(path, object, arrayIndex);
                     continue;
-                } 
+                }
                 structure.put(dest, object, arrayIndex);
             }
         }
     }
-    
+
     /**
      * 解析配置信息
      * @param obj
@@ -165,10 +165,10 @@ public class StructureConvert extends MaplEach implements MaplConvert{
             loadRelation(obj.get(key), path + space(path) + key.toString());
         }
     }
-    
+
     private static String space(String path){
         return "".equals(path) ? "" : ".";
     }
-    
-    
+
+
 }

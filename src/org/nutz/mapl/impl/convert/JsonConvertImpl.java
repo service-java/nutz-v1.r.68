@@ -10,14 +10,14 @@ import org.nutz.json.impl.JsonRenderImpl;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Mirror;
 import org.nutz.lang.stream.StringWriter;
-import org.nutz.mapl.MaplConvert;
+import org.nutz.mapl.IMaplConvert;
 
 /**
  * 将MapList转换成Json
- * 
+ *
  * @author juqkai(juqkai@gmail.com)
  */
-public class JsonConvertImpl implements MaplConvert {
+public class JsonConvertImpl implements IMaplConvert {
     private static Class<? extends JsonRender> jsonRenderCls;
 
     public static Class<? extends JsonRender> getJsonRenderCls() {
